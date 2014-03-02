@@ -2,12 +2,14 @@
 
 A Clojure tool for interactive hacking of web pages.
 
+[![Build Status](https://travis-ci.org/friemen/instaweb.png?branch=master)](https://travis-ci.org/friemen/instaweb)
+
 ## Usage
 
 Add a dependency to your project.clj
-```
+
 [instaweb.viewer "1.0.0"]
-```
+
 
 See the [sample](sample/src/sample/page.clj) on how to start the viewer and exchange content/style.
 

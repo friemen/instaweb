@@ -8,4 +8,8 @@
                  [hiccup "1.0.5"]
                  [garden "1.1.5"]
                  [compojure "1.1.6"]
-                 [http-kit "2.1.14"]])
+                 [http-kit "2.1.14"]]
+  :scm {:name "git"
+        :url "https://github.com/friemen/instaweb/viewer"}
+  :repositories [["clojars" {:url "https://clojars.com/repo"
+                             :creds :gpg}]])
