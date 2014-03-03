@@ -17,6 +17,10 @@
 #_(reset! v/style #'make-style)
 
 
+;; Change make-content and/or make-style and reevaluate the
+;; changed function
+
+
 ;; sample style and content
 
 (defn make-style

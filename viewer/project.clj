@@ -11,5 +11,5 @@
                  [http-kit "2.1.14"]]
   :scm {:name "git"
         :url "https://github.com/friemen/instaweb/viewer"}
-  :repositories [["clojars" {:url "https://clojars.com/repo"
+  :repositories [["clojars" {:url "https://clojars.org/repo"
                              :creds :gpg}]])
