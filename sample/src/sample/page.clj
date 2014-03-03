@@ -22,9 +22,9 @@
 (defn make-style
   []
   (css [:body
-        {:background-color (rgb 80 130 200)}
+        {:background-color (rgb 140 200 250)}
         {:font-family "helvetica"}
-        {:font-size "large"}]))
+        {:font-size "normal"}]))
 
 (defn button
   [text]
@@ -32,11 +32,9 @@
 
 (defn make-content
   []
-  (hc/html [:div [:p "A simple form:"]
-            [:table
-             [:tr
-              [:td 
-               (button "OK")]
-              [:td
-               (button "Cancel")]]]]))
+  (hc/html [:table
+            [:tr [:th {:colspan "2"} "A form"]]
+            [:tr [:td "Foo"] [:td [:input {:type "text"}]]]
+            [:tr [:td "Bar" [:td [:input {:type "checkbox"}]]]]
+            [:tr [:td {:colspan "2"} (button "OK") (button "Cancel")]]]))
 
