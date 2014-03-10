@@ -3,7 +3,9 @@
   (:require [hiccup.core :as hc]
             [hiccup.page :as hp]
             [garden.core :refer [css]]
-            [garden.color :refer [rgb]]))
+            [garden.color :refer [rgb]]
+            [sample.forml :refer :all]
+            [sample.formgen :refer [generate]]))
 
 
 ;; Load this ns into a REPL
@@ -29,16 +31,23 @@
   (css [:body
         {:background-color (rgb 140 200 250)}
         {:font-family "helvetica"}
-        {:font-size "normal"}]))
+        {:font-size "normal"}]
+       [:label.field
+        {:width "100px"
+         :float "left"}]
+       [:group :p {:clear "both"
+                   :height "1em"}]))
 
-(defn button
-  [text]
-  [:input {:type "submit" :value text}])
 
 (defn make-content
   []
-  (hc/html [:table
-            [:tr [:th {:colspan "2"} "A form"]]
-            [:tr [:td "Foo"] [:td [:input {:type "text"}]]]
-            [:tr [:td "Bar" [:td [:input {:type "checkbox"}]]]]
-            [:tr [:td {:colspan "2"} (button "OK") (button "Cancel")]]]))
+  (-> (panel "Data" :elements
+             [(textfield "Name")
+              (textfield "Street")
+              (textfield "City")
+              (checkbox "Adult" :label "Adult?")
+              (button "OK") (button "Back")])
+      generate
+      hc/html))
+
+

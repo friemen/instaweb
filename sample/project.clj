@@ -6,4 +6,5 @@
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [hiccup "1.0.5"]
                  [garden "1.1.5"]
-                 [instaweb/viewer "1.0.0"]])
+                 [instaweb/viewer "1.0.0"]
+                 [metam/core "1.0.5"]])
