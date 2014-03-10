@@ -13,12 +13,12 @@
 (defn- with-label
   [el id markup]
   (if-let [label-text (:label el)]
-    [:p
-     (generate* id (f/label (if (:required el)
-                              (str label-text "*")
-                              label-text)
-                            :for id
-                            :class "field"))
+    [:p {:class "form"}
+     (generate* id {} (f/label (if (:required el)
+                                 (str label-text "*")
+                                 label-text)
+                               :for id
+                               :class "field"))
      markup]
     markup))
 
@@ -29,50 +29,66 @@
              (filter #(el %))
              (map #(vector % (el %)) ))))
 
+(defn- as-vec
+  [x]
+  (cond
+   (vector? x) x
+   (coll? x) (vec x)
+   :else (vector x)))
+
+(defn- value
+  [data el]
+  (get-in data (as-vec (:bind el))))
+
 
 (defmulti generate*
-  (fn [parentid el]
+  (fn [parentid data el]
     (metatype el)))
 
 
 (defmethod generate* :default
-  [parentid el]
+  [parentid data el]
   "")
 
 
 (defmethod generate* ::f/button
-  [parentid el]
+  [parentid data el]
   (let [id (make-id parentid el)]
     [:input {:id id :type "submit" :value (:text el)}]))
 
 
 (defmethod generate* ::f/checkbox
-  [parentid el]
+  [parentid data el]
   (let [id (make-id parentid el)]
     (with-label el id
-      [:input {:id id :type "checkbox" :value (:value el)}])))
+      [:input {:id id :type "checkbox" :checked (value data el)}])))
 
 
 (defmethod generate* ::f/label
-  [parentid el]
+  [parentid data el]
   (let [id (make-id parentid el)]
     [:label (attrs el id :for :class) (:text el)]))
 
 
 (defmethod generate* ::f/panel
-  [parentid el]
+  [parentid data el]
   (let [id (make-id parentid el)]
-    [:group {:id id} (->> el
-                          :elements
-                          (map (partial generate* id)))]))
+    [:div
+     {:id id :class "form"}
+     [:p {:class "heading"} (:title el)]
+     (->> el
+          :elements
+          (map (partial generate* id data)))]))
 
 (defmethod generate* ::f/textfield
-  [parentid el]
+  [parentid data el]
   (let [id (make-id parentid el)]
     (with-label el id
-      [:input {:id id :type "text"}])))
+      [:input {:id id :type "text" :value (value data el)}])))
 
 
 (defn generate
-  [el]
-  (generate* "" el))
+  ([el]
+     (generate* "" {} el))
+  ([data el]
+     (generate* "" data el)))

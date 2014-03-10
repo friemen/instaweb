@@ -29,25 +29,39 @@
 (defn make-style
   []
   (css [:body
-        {:background-color (rgb 140 200 250)}
+        {:background-color (rgb 220 200 220)}
         {:font-family "helvetica"}
         {:font-size "normal"}]
        [:label.field
         {:width "100px"
          :float "left"}]
-       [:group :p {:clear "both"
-                   :height "1em"}]))
+       [:p.heading {:font-weight "bold"
+                    :text-align "center"
+                    :margin "0px 0px 10px 2px"}]
+       [:div.form {:background-color "#eee"
+                   :margin "1em"
+                   :padding "8px"
+                   :border "1px solid grey"
+                   :float "left"}]
+       [:p.form {:margin "2px"}]))
 
+
+(defn layout
+  [markup]
+  [:form markup])
 
 (defn make-content
   []
-  (-> (panel "Data" :elements
+  (->> (panel "Address" :elements
              [(textfield "Name" :required true)
               (textfield "Street")
+              (textfield "Zipcode")
               (textfield "City")
-              (checkbox "Adult" :label "Adult?")
+              (checkbox "Faraway" :label "Is it far away?")
               (button "OK") (button "Back")])
-      generate
-      hc/html))
+       (generate {:city "Foo" :zipcode "43112" :faraway false})
+       layout
+       hc/html))
+
 
 
