@@ -8,6 +8,7 @@
 
 ;; Load this ns into a REPL
 ;; then try
+#_(ns sample.page)
 #_(require '[instaweb.viewer :as v])
 
 ;; Switch to your browser and load http://localhost:3000/viewer
@@ -41,4 +42,3 @@
             [:tr [:td "Foo"] [:td [:input {:type "text"}]]]
             [:tr [:td "Bar" [:td [:input {:type "checkbox"}]]]]
             [:tr [:td {:colspan "2"} (button "OK") (button "Cancel")]]]))
-
