@@ -80,6 +80,25 @@
           :elements
           (map (partial generate* id data)))]))
 
+
+(defn column-header
+  [col]
+  (vector :th (:text col)))
+
+(defn table-row
+  [cols item]
+  (vector :tr (map #(vector :td (value item %)) cols)))
+
+(defmethod generate* ::f/table
+  [parentid data el]
+  (let [cols (:columns el)
+        items (value data el)]
+    [:div {:class "table"}
+     [:p {:class "heading"} (:title el)]
+     [:table
+      [:tr (map column-header cols)]
+      (map (partial table-row cols) items)]]))
+
 (defmethod generate* ::f/textfield
   [parentid data el]
   (let [id (make-id parentid el)]

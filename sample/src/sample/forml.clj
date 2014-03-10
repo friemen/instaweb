@@ -18,10 +18,15 @@
   {::button {:text []}
    ::checkbox {:bind [binding?]
                :label [string?]}
+   ::column {:bind [binding?]
+             :text [string?]}
    ::label {:class [string?]
             :text [string?]
             :for [string?]}
    ::panel {:elements [(coll (type-of ::widget))]
+            :title [string?]}
+   ::table {:bind [binding?]
+            :columns [(coll (type-of ::column))]
             :title [string?]}
    ::textfield {:bind [binding?]
                 :label [string?]
@@ -29,13 +34,21 @@
                 :value []}}
   #'defaults)
 
+(defn keyword-from-name
+  [spec]
+  (-> spec :name lower-case keyword))
+
 
 (defdefaults defaults forml
   {:default nil
-   [::checkbox :bind]         (-> spec :name lower-case keyword)
+   [::checkbox :bind]         (keyword-from-name spec)
    [::checkbox :label]        (:name spec)
+   [::column :bind ]          (keyword-from-name spec)
+   [::column :text]           (:name spec)
    [::panel :title]           (:name spec)
-   [::textfield :bind]        (-> spec :name lower-case keyword)
+   [::table :bind]            (keyword-from-name spec)
+   [::table :title]           (:name spec)
+   [::textfield :bind]        (keyword-from-name spec)
    [::textfield :label]       (:name spec)
    [::textfield :required]    false
    [::widget :text]           (:name spec)})

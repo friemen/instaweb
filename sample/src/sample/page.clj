@@ -26,42 +26,65 @@
 
 ;; sample style and content
 
+(def content-div {:background-color "#eee"
+                  :margin "4px"
+                  :padding "8px"
+                  :border "1px solid grey"
+                  :float "left"
+                  :box-shadow "4px 4px 4px #888888"})
+
 (defn make-style
   []
   (css [:body
         {:background-color (rgb 220 200 220)}
         {:font-family "helvetica"}
         {:font-size "normal"}]
+       [:table {:background-color "#eee"
+                :border-collapse "collapse"}]
+       [:th {:background-color "#ccc"
+             :border "thin solid black"}]
+       [:td {:border "thin solid black"
+             :padding-left "1em"
+             :padding-right "1em"}]
+       [:div.table content-div]
+       [:div.stacked {:clear "both"}]
        [:label.field
         {:width "100px"
          :float "left"}]
        [:p.heading {:font-weight "bold"
-                    :text-align "center"
                     :margin "0px 0px 10px 2px"}]
-       [:div.form {:background-color "#eee"
-                   :margin "1em"
-                   :padding "8px"
-                   :border "1px solid grey"
-                   :float "left"}]
+       [:div.form content-div]
        [:p.form {:margin "2px"}]))
 
 
 (defn layout
-  [markup]
-  [:form markup])
+  [& parts]
+  [:form (map #(vector :div {:class "stacked"} %) parts)])
+
+(defn address-panel
+  []
+  (panel "Address" :elements
+         [(textfield "Name" :required true)
+          (textfield "Street")
+          (textfield "Zipcode")
+          (textfield "City")
+          (checkbox "Faraway" :label "Is it far away?")
+          (button "OK") (button "Back")]))
+
+(defn addresses-table
+  []
+  (table "Addresses" :columns
+         [(column "Name")
+          (column "Street")
+          (column "Zipcode")
+          (column "City")]))
+
+(def data {:selected {:name "Mickey Mouse" :street "Upperstreet 42" :city "Duckberg" :zipcode "43112" :faraway false}
+           :addresses [{:name "Mickey Mouse" :street "Upperstreet 42" :city "Duckberg" :zipcode "43112" :faraway false}
+                       {:name "Mickey Mouse" :street "Upperstreet 42" :city "Duckberg" :zipcode "43112" :faraway false}]})
 
 (defn make-content
   []
-  (->> (panel "Address" :elements
-             [(textfield "Name" :required true)
-              (textfield "Street")
-              (textfield "Zipcode")
-              (textfield "City")
-              (checkbox "Faraway" :label "Is it far away?")
-              (button "OK") (button "Back")])
-       (generate {:city "Foo" :zipcode "43112" :faraway false})
-       layout
-       hc/html))
-
-
-
+  (hc/html
+   (layout (generate (:selected data) (address-panel))
+           (generate data (addresses-table)))))
