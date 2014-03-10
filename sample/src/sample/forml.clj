@@ -18,6 +18,7 @@
             :for [string?]}
    ::panel {:elements [(coll (type-of ::widget))]}
    ::textfield {:label [string?]
+                :required [boolean?]
                 :value []}}
   #'defaults)
 
@@ -26,5 +27,6 @@
   {:default nil
    [::widget :text]           (:name spec)
    [::checkbox :label]        (:name spec)
-   [::textfield :label]       (:name spec)})
+   [::textfield :label]       (:name spec)
+   [::textfield :required]    false})
 

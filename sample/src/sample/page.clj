@@ -42,7 +42,7 @@
 (defn make-content
   []
   (-> (panel "Data" :elements
-             [(textfield "Name")
+             [(textfield "Name" :required true)
               (textfield "Street")
               (textfield "City")
               (checkbox "Adult" :label "Adult?")

@@ -14,7 +14,11 @@
   [el id markup]
   (if-let [label-text (:label el)]
     [:p
-     (generate* id (f/label label-text :for id :class "field"))
+     (generate* id (f/label (if (:required el)
+                              (str label-text "*")
+                              label-text)
+                            :for id
+                            :class "field"))
      markup]
     markup))
 
@@ -30,20 +34,24 @@
   (fn [parentid el]
     (metatype el)))
 
+
 (defmethod generate* :default
   [parentid el]
   "")
+
 
 (defmethod generate* ::f/button
   [parentid el]
   (let [id (make-id parentid el)]
     [:input {:id id :type "submit" :value (:text el)}]))
 
+
 (defmethod generate* ::f/checkbox
   [parentid el]
   (let [id (make-id parentid el)]
     (with-label el id
       [:input {:id id :type "checkbox" :value (:value el)}])))
+
 
 (defmethod generate* ::f/label
   [parentid el]
