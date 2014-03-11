@@ -8,13 +8,18 @@ A Clojure tool for interactive hacking of web pages.
 
 Add a dependency to your project.clj
 
+```
 [instaweb/viewer "1.0.0"]
-
+```
 
 See the [sample](sample/src/sample/page.clj) on how to start the viewer and exchange content/style.
 
+To render and inspect the content without being disturbed by reloading
+request http://localhost:3000/ instead of http://localhost:3000/viewer.
+
 You can change the port with the expression `(v/reset-port! NNNN)`, the server will automatically
 be restarted.
+
 
 ## License
 
