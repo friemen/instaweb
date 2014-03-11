@@ -99,6 +99,7 @@
       [:tr (map column-header cols)]
       (map (partial table-row cols) items)]]))
 
+
 (defmethod generate* ::f/textfield
   [parentid data el]
   (let [id (make-id parentid el)]

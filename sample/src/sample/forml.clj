@@ -14,8 +14,9 @@
       (derive ::checkbox ::widget)
       (derive ::label ::widget)
       (derive ::panel ::widget)
+      (derive ::table ::widget)
       (derive ::textfield ::widget))
-  {::button {:text []}
+  {::button {:text [string?]}
    ::checkbox {:bind [binding?]
                :label [string?]}
    ::column {:bind [binding?]

@@ -57,9 +57,30 @@
        [:p.form {:margin "2px"}]))
 
 
+;; sample data
+
+(def data {:selected {:name "Donald Duck"
+                      :street "Upperstreet 42"
+                      :city "Duckberg"
+                      :zipcode "43112"
+                      :faraway false}
+           :addresses [{:name "Mickey Mouse"
+                        :street "Upperstreet 42"
+                        :city "Duckberg"
+                        :zipcode "43112"
+                        :faraway false}
+                       {:name "Donald Duck"
+                        :street "Upperstreet 42"
+                        :city "Duckberg"
+                        :zipcode "43112"
+                        :faraway false}]})
+
+;; sample form and table
+  
 (defn layout
   [& parts]
   [:form (map #(vector :div {:class "stacked"} %) parts)])
+
 
 (defn address-panel
   []
@@ -79,12 +100,16 @@
           (column "Zipcode")
           (column "City")]))
 
-(def data {:selected {:name "Mickey Mouse" :street "Upperstreet 42" :city "Duckberg" :zipcode "43112" :faraway false}
-           :addresses [{:name "Mickey Mouse" :street "Upperstreet 42" :city "Duckberg" :zipcode "43112" :faraway false}
-                       {:name "Mickey Mouse" :street "Upperstreet 42" :city "Duckberg" :zipcode "43112" :faraway false}]})
-
 (defn make-content
   []
   (hc/html
    (layout (generate (:selected data) (address-panel))
            (generate data (addresses-table)))))
+
+
+
+
+
+
+
+
