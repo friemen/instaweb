@@ -26,22 +26,22 @@ function waitForContent() {
             async: true, /* If set to non-async, browser shows page as "Loading.."*/
             cache: false,
             timeout: 50000, /* Timeout in ms */
+	    dataType: "json",
             success: function(data) {
-		o = JSON.parse(data);
-                setContent(o.content);
-		setStyle(o.style);
+                setContent(data.content);
+		setStyle(data.style);
                 setTimeout(
                     waitForContent,
                     2000 /* 3 seconds */
                 );
             },
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
+            error: function(request, textStatus, errorThrown) {
                 setContent(textStatus + " (" + errorThrown + ")");
                 setTimeout(
                     waitForContent,
                     15000); /* 15 seconds */
             }
-    });
+	   });
 };
 
 $(document).ready(function() {

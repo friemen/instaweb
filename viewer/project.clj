@@ -1,4 +1,4 @@
-(defproject instaweb/viewer "1.0.0"
+(defproject instaweb/viewer "1.0.1"
   :description "Interactive hacking web pages"
   :url "https://github.com/friemen/instaweb"
   :license {:name "Eclipse Public License"

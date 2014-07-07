@@ -46,7 +46,7 @@
   {:status 200
    :body (hp/html5 [:head
                     [:title "Interactive mode"]
-                    (js "http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js")
+                    (js "/script/jquery-1.8.3.min.js") ;; downloaded from http://code.jquery.com/jquery-1.8.3.min.js
                     (js "/script/reloader.js")
                     [:style {:id "mainStyle"} ((var-get @style))]]
                    [:body [:div {:id "content"} ((var-get @content))]])})
