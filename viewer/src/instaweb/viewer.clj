@@ -78,12 +78,18 @@
 
 (def port (atom 3000))
 
+(def shutdown-fn (atom nil))
+
 (defn run!
   []
   (println (str "Open in your browser http://localhost:" @port "/viewer"))
-  (httpkit/run-server #'app {:port @port}))
+  (reset! shutdown-fn (httpkit/run-server #'app {:port @port})))
 
-(def shutdown! (run!))
+(defn shutdown!
+  []
+  (@shutdown-fn))
+
+(run!)
 
 (defn reset-port!
   [n]
